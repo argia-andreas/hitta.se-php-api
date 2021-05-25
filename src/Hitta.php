@@ -13,7 +13,6 @@ class Hitta
     private string $callerId;
     private string $apiKey;
 
-
     public function __construct(string $callerId, string $apiKey)
     {
         $this->apiKey = $apiKey;
@@ -29,9 +28,9 @@ class Hitta
             'base_uri' => $this->baseUrl,
             'headers' => [
                 'hitta-callerid' => $this->callerId,
-                'hitta-time'     => $timestamp,
-                'hitta-random'      => $random,
-                'hitta-hash' => $hash
+                'hitta-time' => $timestamp,
+                'hitta-random' => $random,
+                'hitta-hash' => $hash,
             ],
         ]);
 
@@ -41,62 +40,72 @@ class Hitta
     public function combined(): self
     {
         $this->searchQuery = new SearchQuery(SearchType::combined());
+
         return $this;
     }
 
     public function people(): self
     {
         $this->searchQuery = new SearchQuery(SearchType::people());
+
         return $this;
     }
 
     public function companies(): self
     {
         $this->searchQuery = new SearchQuery(SearchType::companies());
+
         return $this;
     }
 
     public function what($what): self
     {
         $this->searchQuery->what($what);
+
         return $this;
     }
 
     public function where($where): self
     {
         $this->searchQuery->where($where);
+
         return $this;
     }
 
     public function pageNumber($pageNumber = 0): self
     {
         $this->searchQuery->pageNumber($pageNumber);
+
         return $this;
     }
 
     public function pageSize($pageSize = 25): self
     {
         $this->searchQuery->pageSize($pageSize);
+
         return $this;
     }
 
     public function rangeFrom($rangeFrom = 0): self
     {
         $this->searchQuery->rangeFrom($rangeFrom);
+
         return $this;
     }
 
     public function rangeTo($rangeTo = 100): self
     {
         $this->searchQuery->rangeTo($rangeTo);
+
         return $this;
     }
 
     public function find(): HittaResult
     {
-        if(! isset($this->searchQuery)) {
-           throw HittaApiException::UninitializedSearchQuery();
+        if (! isset($this->searchQuery)) {
+            throw HittaApiException::UninitializedSearchQuery();
         }
+
         return $this->client->find($this->searchQuery);
     }
 
@@ -104,6 +113,7 @@ class Hitta
     {
         $this->searchQuery = new SearchQuery(SearchType::personDetail());
         $this->searchQuery->findDetail($personId);
+
         return $this->client->findDetail($this->searchQuery);
     }
 
@@ -111,7 +121,7 @@ class Hitta
     {
         $this->searchQuery = new SearchQuery(SearchType::companyDetail());
         $this->searchQuery->findDetail($companyId);
+
         return $this->client->findDetail($this->searchQuery);
     }
-
 }

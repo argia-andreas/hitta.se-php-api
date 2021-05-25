@@ -3,10 +3,8 @@
 
 namespace Grafstorm\Hitta\Exceptions;
 
-
 class HittaApiException extends \Exception
 {
-
     public static function ResponseCode($code = null): HittaApiException
     {
         return new static('Response codes are of the charts... Server responded with a:' . $code);

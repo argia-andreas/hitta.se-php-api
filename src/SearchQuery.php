@@ -21,36 +21,42 @@ class SearchQuery
     public function what($what): self
     {
         $this->options['what'] = $what;
+
         return $this;
     }
 
     public function where($where): self
     {
         $this->options['where'] = $where;
+
         return $this;
     }
 
     public function pageNumber($pageNumber): self
     {
         $this->options['page.number'] = $pageNumber;
+
         return $this;
     }
 
     public function pageSize($pageSize): self
     {
         $this->options['page.size'] = $pageSize;
+
         return $this;
     }
 
     public function rangeFrom($rangeFrom): self
     {
         $this->options['range.from'] = $rangeFrom;
+
         return $this;
     }
 
     public function rangeTo($rangeTo): self
     {
         $this->options['range.to'] = $rangeTo;
+
         return $this;
     }
 
@@ -88,5 +94,4 @@ class SearchQuery
     {
         return $this->options;
     }
-
 }

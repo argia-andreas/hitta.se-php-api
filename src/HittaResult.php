@@ -3,7 +3,6 @@
 
 namespace Grafstorm\Hitta;
 
-
 use Grafstorm\Hitta\Exceptions\HittaApiException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -16,7 +15,6 @@ class HittaResult
     public $includedCompanies;
     public $people;
     public $companies;
-
 
     public function __construct($people, $includedPeople, $totalPeople, $companies, $includedCompanies, $totalCompanies)
     {
@@ -41,6 +39,7 @@ class HittaResult
         $companies = $json->result->companies?->company ?? null;
         $includedCompanies = $json->result->companies?->included ?? null;
         $totalCompanies = $json->result->companies?->total ?? null;
+
         return new static(
             $people,
             $includedPeople,

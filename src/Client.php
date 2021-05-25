@@ -7,18 +7,17 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class Client extends GuzzleClient
 {
-
     public function find(SearchQuery $searchQuery): HittaResult
     {
         try {
             $response = $this->get($searchQuery->toUri(), [
-                'query' => $searchQuery->query()
+                'query' => $searchQuery->query(),
             ]);
+
             return HittaResult::fromResponse($response);
         } catch (GuzzleException $e) {
-            logger($e->getMessage());
+
             throw $e;
-            // TODO - Some error here.
         }
     }
 
@@ -26,13 +25,13 @@ class Client extends GuzzleClient
     {
         try {
             $response = $this->get($searchQuery->toUri(), [
-                'query' => $searchQuery->query()
+                'query' => $searchQuery->query(),
             ]);
+
             return HittaDetailResult::fromResponse($response);
         } catch (GuzzleException $e) {
-            logger($e->getMessage());
+
             throw $e;
-            // TODO - Some error here.
         }
     }
 }
