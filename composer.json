@@ -1,21 +1,23 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "grafstorm/hitta_php_package",
+    "description": "Hitta.se PHP package",
     "keywords": [
-        ":vendor_name",
-        "package_slug"
+        "grafstorm",
+        "hitta_php_package"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/grafstorm/hitta_php_package",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "grafi",
+            "email": "andreas@grafstrom.io",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0"
+        "php": "^7.4|^8.0",
+        "guzzlehttp/guzzle": "^7.3",
+        "spatie/enum": "^3.9"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",
@@ -25,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "Grafstorm\\Hitta\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Grafstorm\\Hitta\\Tests\\": "tests"
         }
     },
     "scripts": {
