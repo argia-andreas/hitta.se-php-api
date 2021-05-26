@@ -7,7 +7,6 @@ use Grafstorm\Hitta\Enums\SearchType;
 use Grafstorm\Hitta\Exceptions\HittaApiException;
 use Grafstorm\Hitta\SearchQuery;
 use PHPUnit\Framework\TestCase;
-use Grafstorm\Hitta\Hitta;
 
 class SearchQueryTest extends TestCase
 {
@@ -43,7 +42,7 @@ class SearchQueryTest extends TestCase
     public function company_find_type()
     {
         $searchQuery = new SearchQuery(SearchType::companyDetail());
-        $searchQuery->findDetail('::ID::');
+        $searchQuery->detailId('::ID::');
         $this->assertEquals('company/::ID::.json?', $searchQuery->toUri());
     }
 
@@ -51,7 +50,7 @@ class SearchQueryTest extends TestCase
     public function person_find_type()
     {
         $searchQuery = new SearchQuery(SearchType::personDetail());
-        $searchQuery->findDetail('::ID::');
+        $searchQuery->detailId('::ID::');
         $this->assertEquals('person/::ID::.json?', $searchQuery->toUri());
     }
 
@@ -74,5 +73,21 @@ class SearchQueryTest extends TestCase
         $this->assertArrayHasKey('page.size', $options);
         $this->assertArrayHasKey('range.from', $options);
         $this->assertArrayHasKey('range.to', $options);
+    }
+
+    /** @test */
+    public function exception_on_detail_when_no_deatil_id()
+    {
+        $this->expectException(HittaApiException::class);
+        $searchQuery = new SearchQuery(SearchType::personDetail());
+        $searchQuery->toUri();
+    }
+
+    /** @test */
+    public function exception_on_invalid_methods_when_deatil_search()
+    {
+        $this->expectException(HittaApiException::class);
+        $searchQuery = new SearchQuery(SearchType::personDetail());
+        $searchQuery->what('::what::');
     }
 }

@@ -112,7 +112,7 @@ class Hitta
     public function findPerson(string $personId): HittaDetailResult
     {
         $this->searchQuery = new SearchQuery(SearchType::personDetail());
-        $this->searchQuery->findDetail($personId);
+        $this->searchQuery->detailId($personId);
 
         return $this->client->findDetail($this->searchQuery);
     }
@@ -120,7 +120,7 @@ class Hitta
     public function findCompany($companyId): HittaDetailResult
     {
         $this->searchQuery = new SearchQuery(SearchType::companyDetail());
-        $this->searchQuery->findDetail($companyId);
+        $this->searchQuery->detailId($companyId);
 
         return $this->client->findDetail($this->searchQuery);
     }

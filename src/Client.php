@@ -16,7 +16,6 @@ class Client extends GuzzleClient
 
             return HittaResult::fromResponse($response);
         } catch (GuzzleException $e) {
-
             throw $e;
         }
     }
@@ -30,7 +29,6 @@ class Client extends GuzzleClient
 
             return HittaDetailResult::fromResponse($response);
         } catch (GuzzleException $e) {
-
             throw $e;
         }
     }

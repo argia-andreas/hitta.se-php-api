@@ -14,4 +14,16 @@ class HittaApiException extends \Exception
     {
         return new static('SearchQuery not initialized! You need to use what() or where() to actually search for something.');
     }
+
+    public static function NoDetailId()
+    {
+        return new static('No detail id.');
+    }
+
+    public static function InvalidMethod($message = 'Invalid Method')
+    {
+        return new static($message);
+    }
+
+
 }
