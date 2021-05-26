@@ -24,8 +24,10 @@ class HittaBaseTest extends TestCase
     public function basic_combined_search()
     {
         if (! (isset($_ENV['HITTA_API_KEY']) && isset($_ENV['HITTA_CALLER_ID']))) {
+            $this->doesNotPerformAssertions();
             return;
         }
+
         $apiKey = $_ENV['HITTA_API_KEY'];
         $callerId = $_ENV['HITTA_CALLER_ID'];
 
@@ -39,6 +41,7 @@ class HittaBaseTest extends TestCase
     public function basic_company_search()
     {
         if (! (isset($_ENV['HITTA_API_KEY']) && isset($_ENV['HITTA_CALLER_ID']))) {
+            $this->doesNotPerformAssertions();
             return;
         }
         $apiKey = $_ENV['HITTA_API_KEY'];
@@ -54,6 +57,7 @@ class HittaBaseTest extends TestCase
     public function basic_people_search()
     {
         if (! (isset($_ENV['HITTA_API_KEY']) && isset($_ENV['HITTA_CALLER_ID']))) {
+            $this->doesNotPerformAssertions();
             return;
         }
         $apiKey = $_ENV['HITTA_API_KEY'];
@@ -69,6 +73,7 @@ class HittaBaseTest extends TestCase
     public function basic_people_detail_search()
     {
         if (! (isset($_ENV['HITTA_API_KEY']) && isset($_ENV['HITTA_CALLER_ID']))) {
+            $this->doesNotPerformAssertions();
             return;
         }
         $apiKey = $_ENV['HITTA_API_KEY'];
@@ -84,6 +89,7 @@ class HittaBaseTest extends TestCase
     public function basic_company_detail_search()
     {
         if (! (isset($_ENV['HITTA_API_KEY']) && isset($_ENV['HITTA_CALLER_ID']))) {
+            $this->doesNotPerformAssertions();
             return;
         }
         $apiKey = $_ENV['HITTA_API_KEY'];

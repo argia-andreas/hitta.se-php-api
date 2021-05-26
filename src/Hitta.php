@@ -19,7 +19,6 @@ class Hitta
         $this->callerId = $callerId;
         $random = bin2hex(random_bytes(8));
         $timestamp = time();
-        $payload = '';
 
         $hash = hash('sha256', $this->callerId . $timestamp . $this->apiKey . $random);
 
