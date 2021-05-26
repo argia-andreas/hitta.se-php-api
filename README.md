@@ -6,23 +6,23 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/grafstorm/hitta_php_package.svg?style=flat-square)](https://packagist.org/packages/grafstorm/hitta_php_package)
 
 ---
-This package can be used as to scaffold a Laravel package. Follow these steps to get started:
+**Package under development**  
+Fluent Wrapper around the API Hitta.se provides.
+Example of usage:
+```php
+$hitta = new Hitta('::api-user::', '::api-key::');
+$result = $hitta->companies()
+    ->what('Empire')
+    ->where('Deathstar')
+    ->find();
 
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this hitta_php_package
-2. Run "./configure.sh" to run a script that will replace all placeholders throughout all the files
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
+foreach($result->companies as $company) {
+    echo $company->displayName . "\n";
+}
+```
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/hitta-php-package.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/hitta-php-package)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+## Requirements
+PHP 8 is required.
 
 ## Installation
 
@@ -35,12 +35,64 @@ composer require grafstorm/hitta_php_package
 ## Usage
 
 ```php
-$hitta_php_package = new Grafstorm\Hitta();
-echo $hitta_php_package->echoPhrase('Hello, Grafstorm!');
+// Hitta.se API Wrapper as a Laravel Package
+// Search for Swedish companies and people
+
+// Create a new instance of the API wrapper.
+$hitta = new Hitta('::api-user::', '::api-key::');
+
+// Combined search. You can also explicitly call Hitta::combined()
+$hitta->what('Luke Skywalker')
+  ->where('Kiruna')
+  ->find();
+  
+$result = $hitta->combined()
+  ->what('Empire')
+  ->where('Deathstar')
+  ->find();
+
+foreach($result->companies as $company) {
+  echo $company->displayName . "\n";
+}
+
+foreach($result->people as $person) {
+  echo $person->displayName . "\n";
+}
+
+// Only Search for people
+$hitta->people()
+  ->what('Luke Skywalker')
+  ->find();
+  
+// Only Search for companies
+$hitta->companies()
+  ->what('Empire')
+  ->find();
+  
+// Optional search parameters
+$hitta->companies()
+  ->what('Luke Skywalker')
+  ->where('Kiruna')
+  ->pageNumber(1)
+  ->pageSize(10)
+  ->rangeFrom(100)
+  ->rangeTo(150)
+  ->find();
+
+// Example of Fetching details of a company or person with findPerson and findCompany.
+$result = $hitta->combined()
+  ->what('Skywalker')
+  ->find();
+  
+$personId = collect($result->people)->first()->id;
+$companyId = collect($result->companies)->first()->id;
+
+$hitta->findPerson($personId);
+$hitta->findCompany($companyId);
 ```
 
 ## Testing
-
+Tests requiring proper API keys are skipped unless you provide them in your testing environment.
 ```bash
 composer test
 ```
