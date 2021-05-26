@@ -21,7 +21,7 @@ class SearchQuery
 
     public function what($what): self
     {
-        if($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
+        if ($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
             throw HittaApiException::InvalidMethod('Cant use this method on find detail.');
         }
 
@@ -32,7 +32,7 @@ class SearchQuery
 
     public function where($where): self
     {
-        if($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
+        if ($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
             throw HittaApiException::InvalidMethod('Cant use this method on find detail.');
         }
 
@@ -43,7 +43,7 @@ class SearchQuery
 
     public function pageNumber($pageNumber): self
     {
-        if($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
+        if ($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
             throw HittaApiException::InvalidMethod('Cant use this method on find detail.');
         }
 
@@ -54,7 +54,7 @@ class SearchQuery
 
     public function pageSize($pageSize): self
     {
-        if($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
+        if ($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
             throw HittaApiException::InvalidMethod('Cant use this method on find detail.');
         }
 
@@ -65,7 +65,7 @@ class SearchQuery
 
     public function rangeFrom($rangeFrom): self
     {
-        if($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
+        if ($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
             throw HittaApiException::InvalidMethod('Cant use this method on find detail.');
         }
 
@@ -76,7 +76,7 @@ class SearchQuery
 
     public function rangeTo($rangeTo): self
     {
-        if($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
+        if ($this->searchType === (string) SearchType::personDetail() || $this->searchType === (string) SearchType::companyDetail()) {
             throw HittaApiException::InvalidMethod('Cant use this method on find detail.');
         }
 
@@ -105,13 +105,17 @@ class SearchQuery
         }
 
         if ($this->searchType === (string) SearchType::personDetail()) {
-            if(! $this->detailId) throw HittaApiException::NoDetailId();
+            if (! $this->detailId) {
+                throw HittaApiException::NoDetailId();
+            }
 
             $this->uri = "person/".$this->detailId.".json?";
         }
 
         if ($this->searchType === (string) SearchType::companyDetail()) {
-            if(! $this->detailId) throw HittaApiException::NoDetailId();
+            if (! $this->detailId) {
+                throw HittaApiException::NoDetailId();
+            }
             $this->uri = "company/".$this->detailId.".json?";
         }
 

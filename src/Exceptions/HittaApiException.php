@@ -24,6 +24,4 @@ class HittaApiException extends \Exception
     {
         return new static($message);
     }
-
-
 }
