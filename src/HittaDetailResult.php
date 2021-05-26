@@ -32,7 +32,7 @@ class HittaDetailResult
             throw HittaApiException::ResponseCode($response->getStatusCode());
         }
 
-        $json = json_decode($response->getBody());
+        $json = json_decode((string) $response->getBody());
         $people = $json->result->persons?->person ?? null;
         $includedPeople = $json->result->persons?->included ?? null;
         $totalPeople = $json->result->persons?->total ?? null;

@@ -33,26 +33,26 @@ class Hitta
             ],
         ]);
 
-        $this->searchQuery = new SearchQuery(SearchType::combined());
+        $this->searchQuery = new SearchQuery((string) SearchType::combined());
     }
 
     public function combined(): self
     {
-        $this->searchQuery = new SearchQuery(SearchType::combined());
+        $this->searchQuery = new SearchQuery((string) SearchType::combined());
 
         return $this;
     }
 
     public function people(): self
     {
-        $this->searchQuery = new SearchQuery(SearchType::people());
+        $this->searchQuery = new SearchQuery((string) SearchType::people());
 
         return $this;
     }
 
     public function companies(): self
     {
-        $this->searchQuery = new SearchQuery(SearchType::companies());
+        $this->searchQuery = new SearchQuery((string) SearchType::companies());
 
         return $this;
     }
@@ -101,7 +101,7 @@ class Hitta
 
     public function find(): HittaResult
     {
-        if (! isset($this->searchQuery)) {
+        if (! count($this->searchQuery->query())) {
             throw HittaApiException::UninitializedSearchQuery();
         }
 
@@ -110,7 +110,7 @@ class Hitta
 
     public function findPerson(string $personId): HittaDetailResult
     {
-        $this->searchQuery = new SearchQuery(SearchType::personDetail());
+        $this->searchQuery = new SearchQuery((string) SearchType::personDetail());
         $this->searchQuery->detailId($personId);
 
         return $this->client->findDetail($this->searchQuery);
@@ -118,7 +118,7 @@ class Hitta
 
     public function findCompany($companyId): HittaDetailResult
     {
-        $this->searchQuery = new SearchQuery(SearchType::companyDetail());
+        $this->searchQuery = new SearchQuery((string) SearchType::companyDetail());
         $this->searchQuery->detailId($companyId);
 
         return $this->client->findDetail($this->searchQuery);
