@@ -4,6 +4,9 @@ namespace Grafstorm\Hitta;
 
 use Grafstorm\Hitta\Enums\SearchType;
 use Grafstorm\Hitta\Exceptions\HittaApiException;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 class Hitta
 {
@@ -105,7 +108,7 @@ class Hitta
             throw HittaApiException::UninitializedSearchQuery();
         }
 
-        return $this->client->find($this->searchQuery);
+        return HittaResult::fromResponse($this->getResponse());
     }
 
     public function findPerson(string $personId): HittaDetailResult
@@ -113,7 +116,7 @@ class Hitta
         $this->searchQuery = new SearchQuery((string) SearchType::personDetail());
         $this->searchQuery->detailId($personId);
 
-        return $this->client->findDetail($this->searchQuery);
+        return HittaDetailResult::fromResponse($this->getResponse());
     }
 
     public function findCompany($companyId): HittaDetailResult
@@ -121,6 +124,19 @@ class Hitta
         $this->searchQuery = new SearchQuery((string) SearchType::companyDetail());
         $this->searchQuery->detailId($companyId);
 
-        return $this->client->findDetail($this->searchQuery);
+        return HittaDetailResult::fromResponse($this->getResponse());
+    }
+
+    private function getResponse(): ResponseInterface
+    {
+        try {
+            $response = $this->client->get($this->searchQuery->toUri(), [
+                'query' => $this->searchQuery->query(),
+            ]);
+
+            return $response;
+        } catch (GuzzleException $e) {
+            throw $e;
+        }
     }
 }
